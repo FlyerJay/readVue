@@ -14,7 +14,7 @@
 /**
  * Convert a value to a string that is actually rendered.
  */
-function _toString (val) {
+function _toString (val) {//_toString 方法判断传入参数类型进行不同的处理如果为null_toString的结果为''，如果是object就进行序列化(结果缩进两位),如果是其他值就调用String方法
   return val == null
     ? ''
     : typeof val === 'object'
@@ -26,7 +26,7 @@ function _toString (val) {
  * Convert a input value to a number for persistence.
  * If the conversion fails, return original string.
  */
-function toNumber (val) {
+function toNumber (val) {//把传入参数转换为数字，如果失败原样输出
   var n = parseFloat(val);
   return isNaN(n) ? val : n
 }
@@ -35,7 +35,7 @@ function toNumber (val) {
  * Make a map and return a function for checking if a key
  * is in that map.
  */
-function makeMap (
+function makeMap (//创建map，第一个参数为，号隔开的字符串表示创建的map的键，第二个参数bool类型，真则返回的搜索函数可以忽略大小写全部用小写搜索
   str,
   expectsLowerCase
 ) {
