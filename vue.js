@@ -57,7 +57,7 @@ var isBuiltInTag = makeMap('slot,component', true);
 /**
  * Remove an item from an array
  */
-function remove$1 (arr, item) {
+function remove$1 (arr, item) {//移除数组中匹配的元素，这个方法我也写过，哈哈
   if (arr.length) {
     var index = arr.indexOf(item);
     if (index > -1) {
@@ -69,7 +69,7 @@ function remove$1 (arr, item) {
 /**
  * Check whether the object has the property.
  */
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+var hasOwnProperty = Object.prototype.hasOwnProperty;//查看对象中是否有某个属性，直接引用Object原型上的方法，但是在调用的时候必须使用call
 function hasOwn (obj, key) {
   return hasOwnProperty.call(obj, key)
 }
@@ -77,14 +77,14 @@ function hasOwn (obj, key) {
 /**
  * Check if value is primitive
  */
-function isPrimitive (value) {
+function isPrimitive (value) {//查看值是否是原始类型（非对象）
   return typeof value === 'string' || typeof value === 'number'
 }
 
 /**
  * Create a cached version of a pure function.
  */
-function cached (fn) {
+function cached (fn) {//产生一个具有缓存的纯函数，可以去看看关于纯函数的文章，贴个链接https://llh911001.gitbooks.io/mostly-adequate-guide-chinese/content/ch3.html
   var cache = Object.create(null);
   return (function cachedFn (str) {
     var hit = cache[str];
@@ -96,21 +96,21 @@ function cached (fn) {
  * Camelize a hyphen-delimited string.
  */
 var camelizeRE = /-(\w)/g;
-var camelize = cached(function (str) {
+var camelize = cached(function (str) {//把xx-xx转换为驼峰规则
   return str.replace(camelizeRE, function (_, c) { return c ? c.toUpperCase() : ''; })
 });
 
 /**
  * Capitalize a string.
  */
-var capitalize = cached(function (str) {
+var capitalize = cached(function (str) {//把字符串的第一个字符转换成大写
   return str.charAt(0).toUpperCase() + str.slice(1)
 });
 
 /**
  * Hyphenate a camelCase string.
  */
-var hyphenateRE = /([^-])([A-Z])/g;
+var hyphenateRE = /([^-])([A-Z])/g;//用连接符连接驼峰字符串
 var hyphenate = cached(function (str) {
   return str
     .replace(hyphenateRE, '$1-$2')
@@ -121,7 +121,7 @@ var hyphenate = cached(function (str) {
 /**
  * Simple bind, faster than native
  */
-function bind$1 (fn, ctx) {
+function bind$1 (fn, ctx) {//改变一个函数的上下文环境
   function boundFn (a) {
     var l = arguments.length;
     return l
@@ -138,7 +138,7 @@ function bind$1 (fn, ctx) {
 /**
  * Convert an Array-like object to a real Array.
  */
-function toArray (list, start) {
+function toArray (list, start) {//把类数组对象转换成真正的数组，可以指定开始位置
   start = start || 0;
   var i = list.length - start;
   var ret = new Array(i);
@@ -151,7 +151,7 @@ function toArray (list, start) {
 /**
  * Mix properties into target object.
  */
-function extend (to, _from) {
+function extend (to, _from) {//属性继承，很常见的方法
   for (var key in _from) {
     to[key] = _from[key];
   }
@@ -163,7 +163,7 @@ function extend (to, _from) {
  * Objects from primitive values when we know the value
  * is a JSON-compliant type.
  */
-function isObject (obj) {
+function isObject (obj) {//判断是否是对象类型，注意null也是对象类型
   return obj !== null && typeof obj === 'object'
 }
 
@@ -173,14 +173,14 @@ function isObject (obj) {
  */
 var toString = Object.prototype.toString;
 var OBJECT_STRING = '[object Object]';
-function isPlainObject (obj) {
+function isPlainObject (obj) {//严格对象类型检测,只有javascript定义的object返回true(即原生对象类型检测，js高程中有这个技巧)
   return toString.call(obj) === OBJECT_STRING
 }
 
 /**
  * Merge an Array of Objects into a single Object.
  */
-function toObject (arr) {
+function toObject (arr) {//这个方法没看懂。。。
   var res = {};
   for (var i = 0; i < arr.length; i++) {
     if (arr[i]) {
@@ -208,7 +208,7 @@ var identity = function (_) { return _; };
 /**
  * Generate a static keys string from compiler modules.
  */
-function genStaticKeys (modules) {
+function genStaticKeys (modules) {//这个方法没看懂。。。
   return modules.reduce(function (keys, m) {
     return keys.concat(m.staticKeys || [])
   }, []).join(',')
@@ -218,7 +218,7 @@ function genStaticKeys (modules) {
  * Check if two values are loosely equal - that is,
  * if they are plain objects, do they have the same shape?
  */
-function looseEqual (a, b) {
+function looseEqual (a, b) {//判断是否相似，如果是对象序列化后结果一样就判断他们相似
   var isObjectA = isObject(a);
   var isObjectB = isObject(b);
   if (isObjectA && isObjectB) {
@@ -230,7 +230,7 @@ function looseEqual (a, b) {
   }
 }
 
-function looseIndexOf (arr, val) {
+function looseIndexOf (arr, val) {//查看一个数组中是否有和val相似的元素，如果有返回他的位置，没有返回-1，用法同indexOf
   for (var i = 0; i < arr.length; i++) {
     if (looseEqual(arr[i], val)) { return i }
   }
@@ -239,7 +239,7 @@ function looseIndexOf (arr, val) {
 
 /*  */
 
-var config = {
+var config = {//vue的全局配置，具体可以看vue官网的api文档
   /**
    * Option merge strategies (used in core/util/options)
    */
@@ -301,7 +301,7 @@ var config = {
   /**
    * List of asset types that a component can own.
    */
-  _assetTypes: [
+  _assetTypes: [//一个组件可以用的资源类型
     'component',
     'directive',
     'filter'
@@ -310,7 +310,7 @@ var config = {
   /**
    * List of lifecycle hooks.
    */
-  _lifecycleHooks: [
+  _lifecycleHooks: [//生命周期钩子
     'beforeCreate',
     'created',
     'beforeMount',
@@ -334,7 +334,7 @@ var config = {
 /**
  * Check if a string starts with $ or _
  */
-function isReserved (str) {
+function isReserved (str) {//检查一个string是否是以$或者_开头的
   var c = (str + '').charCodeAt(0);
   return c === 0x24 || c === 0x5F
 }
@@ -342,7 +342,7 @@ function isReserved (str) {
 /**
  * Define a property.
  */
-function def (obj, key, val, enumerable) {
+function def (obj, key, val, enumerable) {//给一个对象定义属性
   Object.defineProperty(obj, key, {
     value: val,
     enumerable: !!enumerable,
