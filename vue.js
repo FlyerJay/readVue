@@ -388,7 +388,7 @@ var isIOS = UA && /iphone|ipad|ipod|ios/.test(UA);
 // this needs to be lazy-evaled because vue may be required before
 // vue-server-renderer can set VUE_ENV
 var _isServer;
-var isServerRendering = function () {
+var isServerRendering = function () {//是否服务器端渲染
   if (_isServer === undefined) {
     /* istanbul ignore if */
     if (!inBrowser && typeof global !== 'undefined') {
@@ -491,7 +491,7 @@ var nextTick = (function () {
 
 var _Set;
 /* istanbul ignore if */
-if (typeof Set !== 'undefined' && isNative(Set)) {
+if (typeof Set !== 'undefined' && isNative(Set)) {//定义集合对象
   // use native Set when available.
   _Set = Set;
 } else {
@@ -1071,7 +1071,7 @@ var defaultStrat = function (parentVal, childVal) {
 /**
  * Validate component names
  */
-function checkComponents (options) {
+function checkComponents (options) {//检查依赖的组件
   for (var key in options.components) {
     var lower = key.toLowerCase();
     if (isBuiltInTag(lower) || config.isReservedTag(lower)) {
